@@ -3,7 +3,7 @@ require 'rubygems'
 require 'mqtt'
 require_dependency 'issues_to_mqtt_hook'
 
-Redmine::Plugin.register :issues_to_mqtt do
+Redmine::Plugin.register :redmine_issues_to_mqtt do
   name 'Issues to MQTT'
   author 'Carlo Landmeter'
   description 'A plugin to send issues metadata to MQTT'

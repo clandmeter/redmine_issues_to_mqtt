@@ -6,7 +6,7 @@ class MqttHook < Redmine::Hook::ViewListener
     values = { 
       author: user.name,
       subject: issue.subject,
-      issue_id: issue.id.to_s,
+      issue_id: issue.id,
       project: issue.project.name,
       tracker: issue.tracker.name,
       status: 'new'
@@ -18,8 +18,8 @@ class MqttHook < Redmine::Hook::ViewListener
 
   private
   def send_mqtt_message(payload)
-    host = Setting.plugin_issues_to_mqtt['mqtt_host']
-    topic = Setting.plugin_issues_to_mqtt['mqtt_topic']
+    host = Setting.plugin_redmine_issues_to_mqtt['mqtt_host']
+    topic = Setting.plugin_redmine_issues_to_mqtt['mqtt_topic']
     begin
       MQTT::Client.connect(host) do |c|
         c.publish(topic, payload)
