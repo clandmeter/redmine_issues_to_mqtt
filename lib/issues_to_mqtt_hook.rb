@@ -5,7 +5,7 @@ class MqttHook < Redmine::Hook::ViewListener
     user = issue.author
     values = { 
       author: user.name,
-      subject: issue.subject,
+      subject: issue.subject.strip,
       issue_id: issue.id,
       project: issue.project.name,
       tracker: issue.tracker.name,
@@ -30,3 +30,4 @@ class MqttHook < Redmine::Hook::ViewListener
   end
 
 end
+
