@@ -25,7 +25,8 @@ class MqttHook < Redmine::Hook::ViewListener
         c.publish(topic, payload)
       end
     rescue StandardError => e
-      print e
+      Rails.logger.error "\033[31mFailed to publish MQTT message:\033[0m"
+      Rails.logger.error "  #{e.message}"
     end
   end
 
