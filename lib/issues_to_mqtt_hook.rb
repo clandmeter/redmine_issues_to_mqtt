@@ -18,6 +18,9 @@ class MqttHook < Redmine::Hook::ViewListener
 
   private
   def send_mqtt_message(payload)
+    require 'rubygems'
+    require 'mqtt'
+
     host = Setting.plugin_redmine_issues_to_mqtt['mqtt_host']
     topic = Setting.plugin_redmine_issues_to_mqtt['mqtt_topic']
     begin

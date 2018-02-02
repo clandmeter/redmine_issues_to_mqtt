@@ -1,6 +1,4 @@
 require 'redmine'
-require 'rubygems'
-require 'mqtt'
 require_dependency 'issues_to_mqtt_hook'
 
 Redmine::Plugin.register :redmine_issues_to_mqtt do
