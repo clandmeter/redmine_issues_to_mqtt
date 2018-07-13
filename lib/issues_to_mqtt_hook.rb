@@ -1,6 +1,8 @@
 class MqttHook < Redmine::Hook::ViewListener
 
   def controller_issues_new_after_save(context = {})
+    excluded_projects = Setting.plugin_redmine_issues_to_mqtt['excluded_projects']
+    excluded_projects = excluded_projects.split(",").map(&:strip)
     issue = context[:issue]
     user = issue.author
     values = { 
@@ -11,9 +13,10 @@ class MqttHook < Redmine::Hook::ViewListener
       tracker: issue.tracker.name,
       status: 'new'
     }
-
-    payload = JSON.generate(values)
-    send_mqtt_message(payload)
+    unless excluded_projects.include? issue.project.identifier
+      payload = JSON.generate(values)
+      send_mqtt_message(payload)
+    end
   end
 
   private
